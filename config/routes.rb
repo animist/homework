@@ -1,4 +1,5 @@
 Homework::Application.routes.draw do
+  post 'tweets' => 'index#post'
   root :to => 'index#index'
 
   # The priority is based upon order of creation:

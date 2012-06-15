@@ -1,1 +1,16 @@
 %h1 hello
+
+#tweet_form
+  = form_for @tweet do |f|
+    = f.text_field :name
+    = f.text_field :tweet
+    = f.submit 'Tweet'
+
+%hr
+
+#tweets
+  - @tweets.each do |t|
+    %div
+      %span.name= link_to t.name, {:controller => 'index', :action => 'index', :name => t.name}
+      %span.tweet= raw linking_tags t.tweet
+      %span.date= t.created_at
