@@ -5,7 +5,7 @@ class Tweet < ActiveRecord::Base
 
   def self.search(cond)
     search = Tweet.where(1)
-    unless (cond[:tag].nil?)
+    unless (cond[:tag].blank?)
       tag_id = []
       cond[:tag].split.each do |t|
         tag_id << Hashtag.select(:id).find_by_tag(t).id rescue next
@@ -19,7 +19,7 @@ class Tweet < ActiveRecord::Base
       search = search.where(:id => tagging_tweet)
     end
 
-    search = search.where(:name => cond[:name].split(/\s/)) unless cond[:name].nil?
+    search = search.where(:name => cond[:name].split(/\s/)) unless cond[:name].blank?
     from = Date.parse(cond[:from]) rescue Date.parse("1970/1/1")
     to = Date.parse(cond[:to]) rescue Date.tomorrow
     search = search.where(:created_at => from...to)

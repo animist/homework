@@ -15,7 +15,6 @@ class IndexController < ApplicationController
     @tweet = Tweet.new(params[:tweet])
     cookies[:name] = @tweet.name
 
-    #TODO: hashtag の処理
     @tweet.detect_hashtag
 
     if @tweet.save

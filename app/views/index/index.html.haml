@@ -1,16 +1,29 @@
-%h1 hello
+%div.navbar
+  %div.navbar-inner
+    %div.container
+      = link_to "tweeter", root_path, :class => "brand"
+      %ul.nav.pull-right
+        %li.dropdown
+          = link_to "search", "#", :class => "dropdown-toggle", :"data-toggle" => "dropdown"
+          %ul.dropdown-menu
+            = form_tag :action => 'index' do
+              = text_field_tag :name
+              = text_field_tag :tag
+              = submit_tag 'Search'
 
-#tweet_form
+
+#tweet_form.well.form-inline
   = form_for @tweet do |f|
-    = f.text_field :name
-    = f.text_field :tweet
-    = f.submit 'Tweet'
+    = f.text_field :name, :class => "span2"
+    = f.text_field :tweet, :class => "span4"
+    = f.submit 'Tweet', :class => "btn primary"
 
-%hr
-
-#tweets
+%table.table.table-striped
   - @tweets.each do |t|
-    %div
-      %span.name= link_to t.name, {:controller => 'index', :action => 'index', :name => t.name}
-      %span.tweet= raw linking_tags t.tweet
-      %span.date= t.created_at
+    %tr
+      %td
+        = link_to t.name, {:controller => 'index', :action => 'index', :name => t.name}
+      %td
+        = raw linking_tags t.tweet
+      %td
+        = t.created_at
